@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Microservices Demo App</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🚀 Microservices Demo Application</h1>
+            <p class="subtitle">Multi-Architecture Frontend & Backend</p>
+        </header>
+
+        <div class="status-section">
+            <h2>System Status</h2>
+            <div id="status" class="status-card">
+                <p>Loading...</p>
+            </div>
+        </div>
+
+        <div class="main-section">
+            <div class="form-section">
+                <h2>Add New Item</h2>
+                <form id="itemForm">
+                    <div class="form-group">
+                        <label for="itemName">Name:</label>
+                        <input type="text" id="itemName" required placeholder="Enter item name">
+                    </div>
+                    <div class="form-group">
+                        <label for="itemDescription">Description:</label>
+                        <textarea id="itemDescription" placeholder="Enter item description"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Add Item</button>
+                </form>
+            </div>
+
+            <div class="items-section">
+                <h2>Items List</h2>
+                <div id="itemsList" class="items-container">
+                    <p>Loading items...</p>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>Built with ❤️ for ARM64 and AMD64 architectures</p>
+        </footer>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
