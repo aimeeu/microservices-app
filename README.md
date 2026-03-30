@@ -1,6 +1,9 @@
 # Multi-Architecture Microservices Application
 
-A simple microservices application demonstrating frontend and backend separation with support for both **ARM64** and **AMD64** architectures.
+A basic microservices application demonstrating frontend and backend separation
+with support for both **ARM64** and **AMD64** architectures.
+
+IBM Bob generated this code.
 
 ## 🏗️ Architecture
 
