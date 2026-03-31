@@ -1,6 +1,9 @@
 # Multi-Architecture Microservices Application
 
-A simple microservices application demonstrating frontend and backend separation with support for both **ARM64** and **AMD64** architectures.
+A basic microservices application demonstrating frontend and backend separation
+with support for both **ARM64** and **AMD64** architectures.
+
+IBM Bob generated this code.
 
 ## 🏗️ Architecture
 
@@ -33,6 +36,44 @@ A simple microservices application demonstrating frontend and backend separation
   - Real-time item management
   - Backend status monitoring
   - Auto-refresh capabilities
+
+## 🎯 Deployment Options
+
+This application supports multiple deployment strategies:
+
+1. **Docker Compose** - Local development and testing
+2. **Nomad Dev (Local VM)** - Development on Ubuntu VM with Nomad native service discovery
+3. **Nomad (Basic)** - Simple production deployment
+4. **Nomad Native SD (AWS)** - Multi-node AWS deployment with Nomad service discovery
+5. **Nomad + Consul DNS** - Service discovery without service mesh
+6. **Nomad + Consul Connect** - Full service mesh with mTLS
+
+### Quick Nomad Deployment
+
+```bash
+# Local VM development (Nomad dev mode)
+nomad job run microservices-app-nomad-sd-localVM.nomad.hcl
+
+# Basic Nomad deployment
+nomad job run microservices-app.nomad.hcl
+
+# AWS multi-node with Nomad native service discovery
+nomad job run microservices-app-nomad-sd-aws.nomad.hcl
+
+# With Consul DNS service discovery
+nomad job run microservices-app-consul-dns.nomad.hcl
+
+# With Consul Connect service mesh
+nomad job run microservices-app-consul.nomad.hcl
+```
+
+**Deployment Guides:**
+- [Local VM Guide](LOCAL-VM-GUIDE.md) - Development on Ubuntu VM (Mac M3) with Nomad dev mode
+- [Nomad Deployment Guide](NOMAD-DEPLOYMENT.md) - Comprehensive Nomad deployment instructions
+- [AWS Nomad Deployment](AWS-NOMAD-DEPLOYMENT.md) - Multi-node AWS deployment with native service discovery
+- [Consul DNS Guide](CONSUL-DNS-GUIDE.md) - Using Consul DNS for service discovery
+- [Consul Connect Guide](CONSUL-CONNECT-GUIDE.md) - Using Consul Connect service mesh with mTLS
+
 
 ## 🚀 Quick Start
 

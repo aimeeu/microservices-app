@@ -1,7 +1,15 @@
 // Configuration
-const API_URL = window.location.hostname === 'localhost' 
-    ? 'http://localhost:3000' 
-    : 'http://backend:3000';
+// Backend API URL is configured via environment variable in Nomad job spec
+// Falls back to sensible defaults for different environments
+const API_URL = window.APP_CONFIG?.BACKEND_API_URL ||
+    (window.location.hostname === 'localhost'
+        ? 'http://localhost:3000'
+        : window.location.hostname.includes('consul')
+        ? 'http://backend-api.service.consul:3000'
+        : 'http://backend:3000');
+
+console.log('Backend API URL:', API_URL);
+console.log('window.location.hostname:', window.location.hostname)
 
 // DOM Elements
 const statusDiv = document.getElementById('status');
