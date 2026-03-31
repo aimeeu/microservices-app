@@ -1,6 +1,12 @@
 // Configuration
-const API_URL = window.location.hostname === 'localhost' 
-    ? 'http://localhost:3000' 
+// Support multiple backend URL configurations:
+// 1. Localhost for local development
+// 2. Docker Compose (backend:3000)
+// 3. Consul DNS (backend-api.service.consul)
+const API_URL = window.location.hostname === 'localhost'
+    ? 'http://localhost:3000'
+    : window.location.hostname.includes('consul')
+    ? 'http://backend-api.service.consul:3000'
     : 'http://backend:3000';
 
 // DOM Elements

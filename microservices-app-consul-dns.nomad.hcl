@@ -1,4 +1,4 @@
-job "microservices-app-consul" {
+job "microservices-app-consul-dns" {
   datacenters = ["dc1"]
   type        = "service"
 
@@ -13,16 +13,15 @@ job "microservices-app-consul" {
     count = 2
 
     network {
-      mode = "bridge"
-      
       port "http" {
         to = 3000
       }
     }
 
+    # Register service with Consul for DNS discovery
     service {
       name = "backend-api"
-      port = "3000"
+      port = "http"
       
       tags = [
         "backend",
@@ -30,11 +29,7 @@ job "microservices-app-consul" {
         "microservices"
       ]
 
-      # Consul Connect for service mesh
-      connect {
-        sidecar_service {}
-      }
-
+      # Health check
       check {
         type     = "http"
         path     = "/health"
@@ -47,14 +42,15 @@ job "microservices-app-consul" {
       driver = "docker"
 
       config {
-        image = "aimeeu/microservices-backend:latest"
+        image = "your-dockerhub-username/microservices-backend:latest"
+        ports = ["http"]
         
         # Force pull to get the correct architecture image
         force_pull = false
       }
 
       env {
-        PORT     = "3000"
+        PORT     = "${NOMAD_PORT_http}"
         NODE_ENV = "production"
       }
 
@@ -90,17 +86,16 @@ job "microservices-app-consul" {
     count = 2
 
     network {
-      mode = "bridge"
-      
       port "http" {
         static = 8080
         to     = 80
       }
     }
 
+    # Register service with Consul for DNS discovery
     service {
       name = "frontend-web"
-      port = "80"
+      port = "http"
       
       tags = [
         "frontend",
@@ -109,18 +104,7 @@ job "microservices-app-consul" {
         "urlprefix-/"
       ]
 
-      # Consul Connect for service mesh
-      connect {
-        sidecar_service {
-          proxy {
-            upstreams {
-              destination_name = "backend-api"
-              local_bind_port  = 3000
-            }
-          }
-        }
-      }
-
+      # Health check
       check {
         type     = "http"
         path     = "/health"
@@ -133,10 +117,27 @@ job "microservices-app-consul" {
       driver = "docker"
 
       config {
-        image = "aimeeu/microservices-frontend:latest"
+        image = "your-dockerhub-username/microservices-frontend:latest"
+        ports = ["http"]
+        
+        # DNS configuration to use Consul DNS
+        # This allows the frontend to resolve backend-api.service.consul
+        dns_servers = ["${attr.unique.network.ip-address}"]
+        dns_search_domains = ["service.consul"]
         
         # Force pull to get the correct architecture image
         force_pull = false
+      }
+
+      # Template to configure backend API URL using Consul DNS
+      template {
+        data = <<EOH
+# Backend API can be accessed via Consul DNS
+# backend-api.service.consul resolves to all healthy backend instances
+BACKEND_API_URL=http://backend-api.service.consul:{{ range service "backend-api" }}{{ .Port }}{{ end }}
+EOH
+        destination = "local/env.txt"
+        env         = true
       }
 
       resources {

@@ -37,6 +37,33 @@ IBM Bob generated this code.
   - Backend status monitoring
   - Auto-refresh capabilities
 
+## 🎯 Deployment Options
+
+This application supports multiple deployment strategies:
+
+1. **Docker Compose** - Local development and testing
+2. **Nomad (Basic)** - Simple production deployment
+3. **Nomad + Consul DNS** - Service discovery without service mesh (see [CONSUL-DNS-GUIDE.md](CONSUL-DNS-GUIDE.md))
+4. **Nomad + Consul Connect** - Full service mesh with mTLS
+
+### Quick Nomad Deployment
+
+```bash
+# Basic Nomad deployment
+nomad job run microservices-app.nomad.hcl
+
+# With Consul DNS service discovery
+nomad job run microservices-app-consul-dns.nomad.hcl
+
+# With Consul Connect service mesh
+nomad job run microservices-app-consul.nomad.hcl
+```
+
+**Deployment Guides:**
+- [Nomad Deployment Guide](NOMAD-DEPLOYMENT.md) - Comprehensive Nomad deployment instructions
+- [Consul DNS Guide](CONSUL-DNS-GUIDE.md) - Using Consul DNS for service discovery
+
+
 ## 🚀 Quick Start
 
 ### Prerequisites

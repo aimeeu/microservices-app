@@ -40,7 +40,7 @@ job "microservices-app" {
       driver = "docker"
 
       config {
-        image = "your-dockerhub-username/microservices-backend:latest"
+        image = "aimeeu/microservices-backend:latest"
         ports = ["http"]
         
         # Force pull to get the correct architecture image
@@ -113,7 +113,7 @@ job "microservices-app" {
       driver = "docker"
 
       config {
-        image = "your-dockerhub-username/microservices-frontend:latest"
+        image = "aimeeu/microservices-frontend:latest"
         ports = ["http"]
         
         # Force pull to get the correct architecture image
