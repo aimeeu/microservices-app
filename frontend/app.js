@@ -1,13 +1,14 @@
 // Configuration
-// Support multiple backend URL configurations:
-// 1. Localhost for local development
-// 2. Docker Compose (backend:3000)
-// 3. Consul DNS (backend-api.service.consul)
-const API_URL = window.location.hostname === 'localhost'
-    ? 'http://localhost:3000'
-    : window.location.hostname.includes('consul')
-    ? 'http://backend-api.service.consul:3000'
-    : 'http://backend:3000';
+// Backend API URL is configured via environment variable in Nomad job spec
+// Falls back to sensible defaults for different environments
+const API_URL = window.APP_CONFIG?.BACKEND_API_URL ||
+    (window.location.hostname === 'localhost'
+        ? 'http://localhost:3000'
+        : window.location.hostname.includes('consul')
+        ? 'http://backend-api.service.consul:3000'
+        : 'http://backend:3000');
+
+console.log('Backend API URL:', API_URL);
 
 // DOM Elements
 const statusDiv = document.getElementById('status');
