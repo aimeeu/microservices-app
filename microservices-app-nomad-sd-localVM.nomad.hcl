@@ -5,7 +5,7 @@ job "microservices-app-localVM" {
   type = "service"
 
   # Backend service group
-  group "backend-api" {
+  group "backend" {
     # Single instance for local development
     count = 1
 
@@ -94,7 +94,7 @@ job "microservices-app-localVM" {
   }
 
   # Frontend service group
-  group "frontend-web" {
+  group "frontend" {
     # Single instance for local development
     count = 1
 

@@ -9,6 +9,7 @@ const API_URL = window.APP_CONFIG?.BACKEND_API_URL ||
         : 'http://backend:3000');
 
 console.log('Backend API URL:', API_URL);
+console.log('window.location.hostname:', window.location.hostname)
 
 // DOM Elements
 const statusDiv = document.getElementById('status');
