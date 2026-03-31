@@ -42,15 +42,23 @@ IBM Bob generated this code.
 This application supports multiple deployment strategies:
 
 1. **Docker Compose** - Local development and testing
-2. **Nomad (Basic)** - Simple production deployment
-3. **Nomad + Consul DNS** - Service discovery without service mesh (see [CONSUL-DNS-GUIDE.md](CONSUL-DNS-GUIDE.md))
-4. **Nomad + Consul Connect** - Full service mesh with mTLS
+2. **Nomad Dev (Local VM)** - Development on Ubuntu VM with Nomad native service discovery
+3. **Nomad (Basic)** - Simple production deployment
+4. **Nomad Native SD (AWS)** - Multi-node AWS deployment with Nomad service discovery
+5. **Nomad + Consul DNS** - Service discovery without service mesh
+6. **Nomad + Consul Connect** - Full service mesh with mTLS
 
 ### Quick Nomad Deployment
 
 ```bash
+# Local VM development (Nomad dev mode)
+nomad job run microservices-app-nomad-sd-localVM.nomad.hcl
+
 # Basic Nomad deployment
 nomad job run microservices-app.nomad.hcl
+
+# AWS multi-node with Nomad native service discovery
+nomad job run microservices-app-nomad-sd-aws.nomad.hcl
 
 # With Consul DNS service discovery
 nomad job run microservices-app-consul-dns.nomad.hcl
@@ -60,8 +68,11 @@ nomad job run microservices-app-consul.nomad.hcl
 ```
 
 **Deployment Guides:**
+- [Local VM Guide](LOCAL-VM-GUIDE.md) - Development on Ubuntu VM (Mac M3) with Nomad dev mode
 - [Nomad Deployment Guide](NOMAD-DEPLOYMENT.md) - Comprehensive Nomad deployment instructions
+- [AWS Nomad Deployment](AWS-NOMAD-DEPLOYMENT.md) - Multi-node AWS deployment with native service discovery
 - [Consul DNS Guide](CONSUL-DNS-GUIDE.md) - Using Consul DNS for service discovery
+- [Consul Connect Guide](CONSUL-CONNECT-GUIDE.md) - Using Consul Connect service mesh with mTLS
 
 
 ## 🚀 Quick Start
